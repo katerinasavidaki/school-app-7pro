@@ -17,7 +17,7 @@ public class Teacher {
     private String uuid;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
- //   private Boolean enabled;        // soft delete
+    // private Boolean enabled; // soft delete
 
     public Teacher() {
 
