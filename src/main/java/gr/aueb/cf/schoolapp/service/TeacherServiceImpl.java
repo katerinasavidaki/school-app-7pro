@@ -11,6 +11,7 @@ import gr.aueb.cf.schoolapp.mapper.Mapper;
 import gr.aueb.cf.schoolapp.model.Teacher;
 
 import java.util.List;
+import java.util.Map;
 
 public class TeacherServiceImpl implements ITeacherService {
 
@@ -38,18 +39,52 @@ public class TeacherServiceImpl implements ITeacherService {
         } catch (TeacherDAOException | TeacherAlreadyExistsException e) {
             // logging
             // rollback
-            throw  e;
+            throw e;
         }
     }
 
     @Override
-    public TeacherReadOnlyDTO updateTeacher(Integer id, TeacherUpdateDTO dto) throws TeacherDAOException, TeacherAlreadyExistsException, TeacherNotFoundException {
-        return null;
+    public TeacherReadOnlyDTO updateTeacher(Integer id, TeacherUpdateDTO dto) throws TeacherDAOException,
+            TeacherAlreadyExistsException, TeacherNotFoundException {
+        Teacher teacher;
+        Teacher fetchedTeacher;
+        Teacher updatedTeacher;
+        try {
+            if (teacherDAO.getById(id) == null) {
+                throw new TeacherNotFoundException("Teacher with id " + id + " was not found");
+            }
+
+            fetchedTeacher = teacherDAO.getTeacherByVat(dto.getVat());
+            if (fetchedTeacher != null && !fetchedTeacher.getId().equals(dto.getId())) {
+                throw new TeacherAlreadyExistsException("Teacher with id " + dto.getId() + " already exists");
+            }
+
+            teacher = Mapper.mapTeacherUpdateToModel(dto);
+            updatedTeacher = teacherDAO.update(teacher);
+            // logging
+            return Mapper.mapTeacherToReadOnlyDTO(updatedTeacher).orElseThrow(() -> new TeacherDAOException("Error during mapping"));
+
+        } catch (TeacherDAOException | TeacherAlreadyExistsException | TeacherNotFoundException e) {
+            // logging
+            // rollback
+            throw e;
+        }
     }
 
     @Override
     public void deleteTeacher(Integer id) throws TeacherDAOException, TeacherNotFoundException {
-
+        try {
+            if (teacherDAO.getById(id) == null) {
+                throw new TeacherNotFoundException("Teacher with id " + id + " was not found to be deleted");
+            }
+            //logging
+            teacherDAO.delete(id);
+        } catch (TeacherDAOException | TeacherNotFoundException e) {
+           // e.printStackTrace();
+            //logging
+            //rollback
+            throw e;
+        }
     }
 
     @Override
