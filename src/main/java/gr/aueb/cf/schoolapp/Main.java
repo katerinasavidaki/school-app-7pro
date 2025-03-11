@@ -1,7 +1,6 @@
 package gr.aueb.cf.schoolapp;
 
 import gr.aueb.cf.schoolapp.view_controller.*;
-
 import java.awt.EventQueue;
 
 public class Main {
@@ -12,36 +11,36 @@ public class Main {
 	private static final TeacherView teacherView = new TeacherView();
 	private static final UpdateTeacherPage updateTeacherPage = new UpdateTeacherPage();
 	private static final InsertTeacherPage insertTeacherPage = new InsertTeacherPage();
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
-            try {
+			try {
 
-                landingPage.setVisible(true);
-                landingPage.setLocationRelativeTo(null);
+				landingPage.setVisible(true);
+				landingPage.setLocationRelativeTo(null);
 
-                loginPage.setVisible(false);
-                loginPage.setLocationRelativeTo(null);
+				loginPage.setVisible(false);
+				loginPage.setLocationRelativeTo(null);
 
-                dashboard.setVisible(false);
-                dashboard.setLocationRelativeTo(null);
+				dashboard.setVisible(false);
+				dashboard.setLocationRelativeTo(null);
 
-                viewTeachersPage.setVisible(false);
-                viewTeachersPage.setLocationRelativeTo(null);
+				viewTeachersPage.setVisible(false);
+				viewTeachersPage.setLocationRelativeTo(null);
 
-                insertTeacherPage.setVisible(false);
-                insertTeacherPage.setLocationRelativeTo(null);
+				insertTeacherPage.setVisible(false);
+				insertTeacherPage.setLocationRelativeTo(null);
 
-                teacherView.setVisible(false);
-                teacherView.setLocationRelativeTo(null);
+				teacherView.setVisible(false);
+				teacherView.setLocationRelativeTo(null);
 
-                updateTeacherPage.setVisible(false);
-                updateTeacherPage.setLocationRelativeTo(null);
+				updateTeacherPage.setVisible(false);
+				updateTeacherPage.setLocationRelativeTo(null);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	public static LandingPage getLandingPage() {
@@ -71,6 +70,4 @@ public class Main {
 	public static InsertTeacherPage getInsertTeacherPage() {
 		return insertTeacherPage;
 	}
-	
-	
 }
